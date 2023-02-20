@@ -1,0 +1,27 @@
+{
+  "name": "@tarot/lib",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "NODE_OPTIONS='--loader tsx' uvu",
+    "build": "tsup tarot.ts --dts --format esm,cjs"
+  },
+  "exports": {
+    "import": "./dist/tarot.js",
+    "require": "./dist/tarot.cjs",
+    "default": "./dist/tarot.cjs"
+  },
+  "types": "./dist/tarot.d.ts",
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "tinyspy": "^1.1.1",
+    "tsup": "^6.6.3",
+    "uvu": "^0.5.6"
+  },
+  "dependencies": {
+    "tsx": "^3.12.3"
+  }
+}

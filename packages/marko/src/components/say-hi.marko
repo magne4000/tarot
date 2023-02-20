@@ -1,0 +1,9 @@
+import {get_chelem_calc} from "@tarot/lib";
+
+class {
+    sayHi() {
+        console.log(get_chelem_calc(false, false, false, true))
+    }
+}
+
+<button on-click("sayHi")><${input.renderBody}/></button>

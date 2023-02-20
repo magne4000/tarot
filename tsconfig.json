@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Node16",
+    "strict": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "sourceMap": true,
+    "lib": ["ESNext", "ES2015"]
+  },
+  "include": [
+    "lib"
+  ]
+}

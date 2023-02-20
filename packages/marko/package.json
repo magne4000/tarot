@@ -1,0 +1,20 @@
+{
+  "name": "marko",
+  "description": "The default Marko starter app",
+  "version": "1.0.0",
+  "dependencies": {
+    "@tarot/lib": "workspace:../../lib",
+    "marko": "^5"
+  },
+  "devDependencies": {
+    "@marko/build": "^4",
+    "@marko/serve": "^4",
+    "webpack": "^5.75.0"
+  },
+  "private": true,
+  "scripts": {
+    "build": "marko-build ./src/pages",
+    "dev": "marko-serve ./src/pages",
+    "preview": "NODE_ENV=production node ./build/index.js"
+  }
+}
