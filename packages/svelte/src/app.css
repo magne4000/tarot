@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .outline-summary {
+    outline: 2px solid hsla(var(--bc) / 0.2);
+    outline-offset: 2px;
+  }
+}

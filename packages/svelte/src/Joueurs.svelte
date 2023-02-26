@@ -19,7 +19,7 @@
   <h2 class="text-3xl font-bold mb-4">Joueurs</h2>
   <div>
     {#each $joueurs as joueur, i}
-      <div class="mb-6">
+      <div class="mb-6" class:input-group={i === $joueurs.length - 1}>
         <input
           type="text"
           bind:value={joueur}
@@ -28,19 +28,20 @@
           class="input input-bordered w-full"
           autocomplete="off"
         />
+        {#if i === $joueurs.length - 1}
+          {#if $joueurs.length > 3}
+            <button type="button" class="btn btn-error btn-outline" on:click={delJoueur}>- 🙋</button>
+          {/if}
+          {#if $joueurs.length < 5}
+            <button type="button" class="btn btn-accent btn-outline" on:click={addJoueur}>+ 🙋</button>
+          {/if}
+        {/if}
       </div>
     {/each}
 
     <div class="ui error message" />
     {#if $parties.length === 0}
-      <div>
-        <button type="button" class="btn btn-accent btn-outline" on:click={addJoueur} disabled={$joueurs.length >= 5}>
-          Ajouter un joueur
-        </button>
-        <button type="button" class="btn btn-warning btn-outline" on:click={delJoueur} disabled={$joueurs.length <= 3}>
-          Retirer un joueur
-        </button>
-
+      <div class="container flex justify-end">
         <button type="submit" class="btn btn-primary" disabled={!peut_demarrer}>Commencer</button>
       </div>
     {/if}

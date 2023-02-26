@@ -39,9 +39,9 @@ test('get_points_appel', () => {
 });
 
 test('get_points_appel', () => {
-  const J1: Joueur = 'J1';
-  const J2: Joueur = 'J2';
-  const J3: Joueur = 'J3';
+  const J1: Joueur = 1;
+  const J2: Joueur = 2;
+  const J3: Joueur = 3;
   assert.is(get_petit(J1, J1, J2, Contrat.Petite), 10);
   assert.is(get_petit(J2, J1, J2, Contrat.Petite), 10);
   assert.is(get_petit(J3, J1, J2, Contrat.Petite), -10);
@@ -57,7 +57,7 @@ test('get_points_appel', () => {
 });
 
 test('get_poignee', () => {
-  const J1: Joueur = 'J1';
+  const J1: Joueur = 1;
   assert.is(get_poignee(J1, Poignee.Simple, 10), 20);
   assert.is(get_poignee(J1, Poignee.Double, 10), 30);
   assert.is(get_poignee(J1, Poignee.Triple, 10), 40);
@@ -80,15 +80,15 @@ test('get_chelem_calc', () => {
 
 test('get_chelem', () => {
   const spy = spyOn(tarot, 'get_chelem_calc');
-  const J1: Joueur = 'J1';
-  const J2: Joueur = 'J2';
-  const J3: Joueur = 'J3';
+  const J1: Joueur = 1;
+  const J2: Joueur = 2;
+  const J3: Joueur = 3;
 
   assert.is.not(get_chelem(J1, J1, J1, J2), 0);
   assert.equal(spy.calls[0], [true, false, true, false]);
 
   spy.reset();
-  assert.is.not(get_chelem(undefined, J1, J1, J2), 0);
+  assert.is.not(get_chelem(-1, J1, J1, J2), 0);
   assert.equal(spy.calls[0], [false, false, true, false]);
 
   spy.reset();
@@ -100,7 +100,7 @@ test('get_chelem', () => {
   assert.equal(spy.calls[0], [true, false, false, true]);
 
   spy.reset();
-  assert.is.not(get_chelem(undefined, J3, J1, J2), 0);
+  assert.is.not(get_chelem(-1, J3, J1, J2), 0);
   assert.equal(spy.calls[0], [false, false, false, true]);
 
   spy.reset();
@@ -108,12 +108,12 @@ test('get_chelem', () => {
   assert.equal(spy.calls[0], [false, true, false, true]);
 
   spy.reset();
-  assert.is.not(get_chelem(J1, undefined, J1, J2), 0);
+  assert.is.not(get_chelem(J1, -1, J1, J2), 0);
   assert.equal(spy.calls[0], [true, false, false, false]);
 
   spy.reset();
-  assert.is(get_chelem(undefined, undefined, J1, J2), 0);
-  assert.is.not(get_chelem(J3, undefined, J1, J2), 0);
+  assert.is(get_chelem(-1, -1, J1, J2), 0);
+  assert.is.not(get_chelem(J3, -1, J1, J2), 0);
   assert.equal(spy.calls[0], [false, true, false, false]);
 
   spy.restore();

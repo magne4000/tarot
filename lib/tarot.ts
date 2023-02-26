@@ -13,7 +13,7 @@ export enum Poignee {
   Triple = 40,
 }
 
-export type Joueur = string;
+export type Joueur = number;
 
 export type Points = {
   appele: number;
@@ -24,23 +24,23 @@ export type Points = {
 export type Partie = {
   quiapris: Joueur;
   avecquelappele: Joueur;
-  quelcontrat: Contrat;
+  quelcontrat: Contrat | number;
   nombredeboutsfaits: 0 | 1 | 2 | 3;
   pointscomptesattaque: number;
-  petitmeneauboutpar?: Joueur;
+  petitmeneauboutpar: Joueur;
   poignee1annonceepar: Joueur;
-  typedepoignee1: Poignee;
+  typedepoignee1: Poignee | number;
   poignee2annonceepar: Joueur;
-  typedepoignee2: Poignee;
-  chelemannoncepar?: Joueur;
-  chelemrealisepar?: Joueur;
+  typedepoignee2: Poignee | number;
+  chelemannoncepar: Joueur;
+  chelemrealisepar: Joueur;
 };
 
-export const get_score_joueur = (joueur: Joueur, preneur: Joueur, appele: Joueur, points: Points) => {
+export function get_score_joueur(joueur: Joueur, preneur: Joueur, appele: Joueur, points: Points) {
   if (joueur === preneur) return points.preneur;
   if (joueur === appele) return points.appele;
   return points.defense;
-};
+}
 
 export const get_fait_de = (pointscomptesattaque: number, nombredeboutsfaits: number) =>
   pointscomptesattaque - CorresBoutsPoints[nombredeboutsfaits];
@@ -49,21 +49,21 @@ export const get_points_appel = (faitede: number, quelcontrat: Contrat) =>
   (faitede + (faitede >= 0 ? 25 : -25)) * quelcontrat;
 
 export const get_petit = (
-  petitmeneauboutpar: Joueur | undefined,
+  petitmeneauboutpar: Joueur,
   quiapris: Joueur,
   avecquelappele: Joueur,
   quelcontrat: Contrat
 ) => {
-  if (petitmeneauboutpar === quiapris || petitmeneauboutpar === avecquelappele) {
+  if (petitmeneauboutpar === quiapris || (avecquelappele !== -1 && petitmeneauboutpar === avecquelappele)) {
     return 10 * quelcontrat;
-  } else if (petitmeneauboutpar) {
+  } else if (petitmeneauboutpar !== -1) {
     return -10 * quelcontrat;
   }
   return 0;
 };
 
-export const get_poignee = (poigneeannonceepar: Joueur, typedepoignee: Poignee, faitede: number) => {
-  if (poigneeannonceepar) {
+export const get_poignee = (poigneeannonceepar: Joueur, typedepoignee: Poignee | number, faitede: number) => {
+  if (poigneeannonceepar !== -1 && typedepoignee !== -1) {
     const sign = faitede >= 0 ? 1 : -1;
     return sign * typedepoignee;
   }
@@ -82,16 +82,18 @@ export const get_chelem_calc = (
 };
 
 export const get_chelem = (
-  chelemannoncepar: Joueur | undefined,
-  chelemrealisepar: Joueur | undefined,
+  chelemannoncepar: Joueur,
+  chelemrealisepar: Joueur,
   quiapris: Joueur,
   avecquelappele: Joueur
 ) => {
-  if (chelemannoncepar || chelemrealisepar) {
-    const annonceparattaque = chelemannoncepar === quiapris || chelemannoncepar === avecquelappele;
-    const annoncepardefense = !annonceparattaque && Boolean(chelemannoncepar);
-    const realiseparattaque = chelemrealisepar === quiapris || chelemrealisepar === avecquelappele;
-    const realisepardefense = !realiseparattaque && Boolean(chelemrealisepar);
+  if (chelemannoncepar !== -1 || chelemrealisepar !== -1) {
+    const annonceparattaque =
+      chelemannoncepar !== -1 && (chelemannoncepar === quiapris || chelemannoncepar === avecquelappele);
+    const annoncepardefense = !annonceparattaque && chelemannoncepar !== -1;
+    const realiseparattaque =
+      chelemrealisepar !== -1 && (chelemrealisepar === quiapris || chelemrealisepar === avecquelappele);
+    const realisepardefense = !realiseparattaque && chelemrealisepar !== -1;
     return main.get_chelem_calc(annonceparattaque, annoncepardefense, realiseparattaque, realisepardefense);
   }
   return 0;
