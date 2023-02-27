@@ -1,84 +1,27 @@
 <script lang="ts">
-  import { joueurs, parties, scores, total } from './lib/memoire';
-  import { formatOrdinals } from './lib/utils';
+  import { parties, scores, total } from './lib/memoire';
+  import TableScores from './TableScores.svelte';
 
-  $: joueurs_tri = [...$joueurs.keys()]
-    .sort((a, b) => {
-      return $total[b] - $total[a];
-    })
-    .map((index) => ({
-      joueur: $joueurs[index],
-      score: $total[index],
-    }));
+  let partie = $scores.length + 1;
 
-  function ismax(value: number, values: number[]) {
-    return Math.max(...values) === value;
-  }
+  $: scores_a_afficher = partie === $scores.length + 1 ? $total : $scores[partie - 1].scores.map((s) => s.score);
 </script>
 
 <h2 class="text-3xl font-bold mb-4">Scores</h2>
 
-<div class="container flex justify-center">
-  <div class="stats shadow">
-    {#each joueurs_tri as joueur, index}
-      <div class="stat">
-        <div class="stat-title">{ismax(joueur.score, $total) ? '🏆' : formatOrdinals(index + 1)}</div>
-        <div class="stat-value" class:text-primary={ismax(joueur.score, $total)}>{joueur.joueur}</div>
-        <div class="stat-desc">
-          {joueur.score}
-        </div>
-      </div>
-    {/each}
-  </div>
-</div>
-
-<p class="text-red-500">TODO: replace table with list of games</p>
-
-<div class="w-full flex md:table">
-  <div class="flex flex-col md:table-row min-w-min shrink-0">
-    <div class="h-14 p-4 md:table-cell">#</div>
-    {#each $joueurs as joueur}
-      <div class="h-14 p-4 md:table-cell">{joueur}</div>
-    {/each}
-  </div>
-  <div class="flex flex-row md:table-row-group relative overflow-x-auto overflow-y-hidden">
-    {#each $scores as line, index}
-      <div class="flex flex-col md:table-row min-w-min shrink-0">
-        <div class="h-14 p-4">
-          Partie n°{index + 1}
-        </div>
-        {#each line.scores as col, ind_joueur}
-          <div
-            class="relative h-14 p-4 md:table-cell"
-            class:border={col.apris}
-            class:border-success={col.apris && col.score >= 0}
-            class:border-error={col.apris && col.score < 0}
-          >
-            {#if col.apris && col.score >= 0}
-              <span class="badge badge-score badge-success">⚔</span>
-            {/if}
-            {#if col.apris && col.score < 0}
-              <span class="badge badge-score badge-error">⚔</span>
-            {/if}
-            {#if col.estappele}
-              <span class="badge badge-score">🤝</span>
-            {/if}
-            {col.score}
-          </div>
-        {/each}
-      </div>
-    {/each}
-
-    <div class="flex flex-col md:table-row min-w-min shrink-0">
-      <div class="h-14 p-4 md:table-cell">Total</div>
-      {#each $total as score_col}
-        <div class="h-14 p-4 relative md:table-cell">
-          {#if ismax(score_col, $total)}
-            <span class="badge badge-score">🏆</span>
-          {/if}
-          {score_col}
-        </div>
-      {/each}
-    </div>
+<div class="container flex flex-col p-4 gap-4">
+  <TableScores scores={scores_a_afficher} partie={partie === $scores.length + 1 ? undefined : $parties[partie - 1]} />
+  <div class="form-control w-full">
+    <label class="label" for="parties_selecteur">
+      <span class="label-text">{partie === $scores.length + 1 ? 'Total' : `Partie n°${partie}`}</span>
+    </label>
+    <input
+      name="parties_selecteur"
+      type="range"
+      min={1}
+      max={$scores.length + 1}
+      bind:value={partie}
+      class="range range-sm"
+    />
   </div>
 </div>

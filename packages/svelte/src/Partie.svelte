@@ -1,11 +1,12 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  import { Contrat, calculer_points, type Points, type Partie, get_score_joueur } from '@tarot/lib';
+  import { calculer_points, type Points, type Partie, get_score_joueur } from '@tarot/lib';
   import FormControl from './FormControl.svelte';
   import JoueurSelect from './JoueurSelect.svelte';
   import Select from './Select.svelte';
-  import { changer_partie, joueurs, page, parties, scores, update_score_total, type ScoreCol } from './lib/memoire';
-  import { get_nom_joueur } from './lib/utils';
+  import { changer_partie, joueurs, parties, scores, update_score_total, type ScoreCol } from './lib/memoire';
+  import { contrat_str } from './lib/utils';
+  import ResumePartie from './ResumePartie.svelte';
 
   export let n: number;
   let step = 0;
@@ -29,23 +30,6 @@
 
   function mise_a_jour_defense(e: Event) {
     partie.pointscomptesattaque = 91 - parseInt((e.target as HTMLInputElement).value, 10);
-  }
-
-  function contrat_str(contrat: Contrat | number | string) {
-    switch (contrat) {
-      case Contrat.Petite:
-      case String(Contrat.Petite):
-        return 'Petite';
-      case Contrat.Garde:
-      case String(Contrat.Garde):
-        return 'Garde';
-      case Contrat.GardeSans:
-      case String(Contrat.GardeSans):
-        return 'Garde Sans';
-      case Contrat.GardeContre:
-      case String(Contrat.GardeContre):
-        return 'Garde Contre';
-    }
   }
 
   function change_step(nouveau_step: number) {
@@ -93,34 +77,7 @@
 <h2 class="text-3xl font-bold mb-4">Partie n°{n}</h2>
 
 <div class="container flex justify-center">
-  <div class="stats shadow bg-base-200">
-    <div class="stat">
-      <div class="stat-title">Qui à pris</div>
-      <div class="stat-value text-primary">
-        {partie.quiapris !== -1 ? get_nom_joueur(partie.quiapris) : '-'}
-      </div>
-      <div class="stat-desc">{partie.quelcontrat !== -1 ? contrat_str(partie.quelcontrat) : '-'}</div>
-    </div>
-
-    {#if $joueurs.length === 5}
-      <div class="stat">
-        <div class="stat-title">Appel</div>
-        <div class="stat-value text-secondary">
-          {partie.avecquelappele !== -1 ? get_nom_joueur(partie.avecquelappele) : '-'}
-        </div>
-        {#if typeof points?.appele === 'number'}
-          <div class="stat-desc">{points.appele}</div>
-        {/if}
-      </div>
-    {/if}
-
-    <div class="stat">
-      <div class="stat-title">Score</div>
-      <div class="stat-value" class:text-success={points?.preneur >= 0} class:text-error={points?.preneur < 0}>
-        {points ? points.preneur : '-'}
-      </div>
-    </div>
-  </div>
+  <ResumePartie {partie} {points} />
 </div>
 
 <form on:submit|preventDefault={calcul_score_partie} class="container relative">

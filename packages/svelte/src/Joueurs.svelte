@@ -19,7 +19,7 @@
   <h2 class="text-3xl font-bold mb-4">Joueurs</h2>
   <div>
     {#each $joueurs as joueur, i}
-      <div class="mb-6" class:input-group={i === $joueurs.length - 1}>
+      <div class="mb-6" class:input-group={i === $joueurs.length - 1 && $parties.length === 0}>
         <input
           type="text"
           bind:value={joueur}
@@ -28,7 +28,7 @@
           class="input input-bordered w-full text-lg"
           autocomplete="off"
         />
-        {#if i === $joueurs.length - 1}
+        {#if i === $joueurs.length - 1 && $parties.length === 0}
           {#if $joueurs.length > 3}
             <button type="button" class="btn btn-error btn-outline" on:click={delJoueur}>- 🙋</button>
           {/if}

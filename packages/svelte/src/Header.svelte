@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { parties, page } from './lib/memoire';
+  import { parties, page, scores } from './lib/memoire';
+
+  function onChange(e: Event & { currentTarget: EventTarget & HTMLSelectElement }) {
+    e.preventDefault();
+    page.set(e.currentTarget.selectedIndex);
+    e.currentTarget.selectedIndex = 0;
+  }
 </script>
 
 <div class="navbar">
@@ -9,23 +15,20 @@
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
       <li><button type="button" class="btn btn-ghost" on:click={() => page.set('joueurs')}>Joueurs</button></li>
-      <li><button type="button" class="btn btn-ghost" on:click={() => page.set('scores')}>Scores</button></li>
       <li>
-        <button type="button" class="btn btn-ghost">
-          Parties
-          <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-          </svg>
+        <button type="button" class="btn btn-ghost" disabled={$scores.length === 0} on:click={() => page.set('scores')}>
+          Scores
         </button>
-        <ul class="p-2 bg-base-100">
+      </li>
+      <li>
+        <select class="btn btn-ghost appearance-none" disabled={$parties.length === 0} on:change={onChange}>
+          <option disabled selected>Parties</option>
           {#each $parties as partie, index}
-            <li>
-              <button type="button" class="btn btn-ghost" on:click={() => page.set(index + 1)}>
-                Partie n°{index + 1}
-              </button>
-            </li>
+            <option>
+              Partie n°{index + 1}
+            </option>
           {/each}
-        </ul>
+        </select>
       </li>
     </ul>
   </div>
