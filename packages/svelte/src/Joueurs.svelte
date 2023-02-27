@@ -25,7 +25,7 @@
           bind:value={joueur}
           name={'joueur-' + (i + 1)}
           placeholder={'Joueur ' + (i + 1)}
-          class="input input-bordered w-full"
+          class="input input-bordered w-full text-lg"
           autocomplete="off"
         />
         {#if i === $joueurs.length - 1}

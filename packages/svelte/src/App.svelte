@@ -6,7 +6,7 @@
   import { parties, page } from './lib/memoire';
 </script>
 
-<main>
+<main class="h-full">
   <Header />
   <div class="px-4 pb-4">
     {#if $page === 'joueurs'}

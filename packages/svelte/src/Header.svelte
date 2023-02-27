@@ -2,9 +2,9 @@
   import { parties, page } from './lib/memoire';
 </script>
 
-<div class="navbar bg-base-100">
+<div class="navbar">
   <div class="flex-1">
-    <span class="normal-case text-xl">Tarot</span>
+    <span class="uppercase font-bold tracking-wide">Tarot</span>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">

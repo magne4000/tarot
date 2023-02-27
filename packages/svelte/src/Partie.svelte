@@ -18,6 +18,15 @@
     loaded = true;
   }
 
+  $: {
+    if (partie.pointscomptesattaque < 0) {
+      partie.pointscomptesattaque = 0;
+    }
+    if (partie.pointscomptesattaque > 91) {
+      partie.pointscomptesattaque = 91;
+    }
+  }
+
   function mise_a_jour_defense(e: Event) {
     partie.pointscomptesattaque = 91 - parseInt((e.target as HTMLInputElement).value, 10);
   }
@@ -90,7 +99,7 @@
       <div class="stat-value text-primary">
         {partie.quiapris !== -1 ? get_nom_joueur(partie.quiapris) : '-'}
       </div>
-      <div class="stat-desc">{partie.quelcontrat ? contrat_str(partie.quelcontrat) : '-'}</div>
+      <div class="stat-desc">{partie.quelcontrat !== -1 ? contrat_str(partie.quelcontrat) : '-'}</div>
     </div>
 
     {#if $joueurs.length === 5}
@@ -189,10 +198,10 @@
           <input
             class="input input-bordered"
             autocomplete="off"
-            placeholder="91"
+            placeholder="0"
             type="number"
-            min="0"
-            max="91"
+            min={0}
+            max={91}
             name="pointscomptesattaque"
             bind:value={partie.pointscomptesattaque}
           />
@@ -203,8 +212,8 @@
             autocomplete="off"
             placeholder="91"
             type="number"
-            min="0"
-            max="91"
+            min={0}
+            max={91}
             name="pointscomptesdefense"
             value={91 - partie.pointscomptesattaque}
             on:input={mise_a_jour_defense}
@@ -218,8 +227,8 @@
           autocomplete="off"
           placeholder="3"
           type="number"
-          min="0"
-          max="3"
+          min={0}
+          max={3}
           name="nombredeboutsfaits"
           bind:value={partie.nombredeboutsfaits}
         />
