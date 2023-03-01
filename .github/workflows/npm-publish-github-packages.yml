@@ -49,11 +49,11 @@ jobs:
         uses: thedoctor0/zip-release@0.7.1
         with:
           type: 'tar'
-          filename: 'tarot-svelte.tar.gz'
+          filename: ${{ vars.RUNNER_TEMP }}/tarot-svelte.tar.gz
           directory: 'packages/svelte/dist'
           path: '.'
 
       - name: Upload Release
         uses: ncipollo/release-action@v1.12.0
         with:
-          artifacts: 'packages/svelte/dist/tarot-svelte.tar.gz'
+          artifacts: ${{ vars.RUNNER_TEMP }}/tarot-svelte.tar.gz
