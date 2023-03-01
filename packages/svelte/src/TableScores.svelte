@@ -32,15 +32,19 @@
             : `--tw-translate-x: ${(1 - Math.abs(scores[index] / max_score_abs)) * 50}%;`}
         >
           <div
-            class={`transition-all duration-300 pl-2 py-2 ${
+            data-tip={scores[index]}
+            class={`tooltip transition-all duration-300 pl-2 py-2 ${
               partie === undefined && max_score === scores[index]
                 ? 'bg-success text-success-content'
-                : partie === undefined || partie?.quiapris === index
+                : partie?.quiapris === index
                 ? 'bg-primary text-primary-content'
                 : partie?.avecquelappele === index
-                ? 'bg-info text-info-content'
+                ? 'bg-secondary text-secondary-content'
                 : 'bg-base-content text-base-100'
             }`}
+            class:tooltip-open={Math.abs(scores[index] / max_score_abs) < 0.15}
+            class:tooltip-left={scores[index] < 0}
+            class:tooltip-right={scores[index] >= 0}
             class:rounded-l-sm={scores[index] < 0}
             class:rounded-r-sm={scores[index] >= 0}
             style={`width: ${Math.abs(scores[index] / max_score_abs) * 50}%;`}

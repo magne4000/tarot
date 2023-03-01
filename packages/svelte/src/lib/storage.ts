@@ -1,5 +1,13 @@
 import type { Unsubscriber } from 'svelte/store';
-import { parties, joueurs, scores, type PersistedGame, old_parties, changer_partie } from './memoire';
+import {
+  parties,
+  joueurs,
+  scores,
+  type PersistedGame,
+  old_parties,
+  changer_partie,
+  update_score_total,
+} from './memoire';
 
 const SEP = '|';
 
@@ -39,6 +47,7 @@ export function continue_old_partie(isoDate: string) {
     parties.set(load('parties'));
     scores.set(load('scores'));
 
+    update_score_total();
     changer_partie();
 
     watch(isoDate);

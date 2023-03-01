@@ -27,7 +27,7 @@
     {#if $joueurs.length === 5}
       <div class="px-2 py-2">
         <div class="stat-title">Appel</div>
-        <div class="text-info font-extrabold text-2xl">
+        <div class="text-secondary font-extrabold text-2xl">
           {partie.avecquelappele !== -1 ? get_nom_joueur(partie.avecquelappele) : '-'}
         </div>
         {#if typeof points?.appele === 'number'}
@@ -51,16 +51,16 @@
     <ul>
       {#if poignee1}
         <li>
-          <span class="font-bold text-info">{poignee_str(partie.typedepoignee1)}</span>
+          <span class="font-bold text-info-content dark:text-info">{poignee_str(partie.typedepoignee1)}</span>
           annoncée par
-          <span class="font-bold text-info">{get_nom_joueur(partie.poignee1annonceepar)}</span>
+          <span class="font-bold text-info-content dark:text-info">{get_nom_joueur(partie.poignee1annonceepar)}</span>
         </li>
       {/if}
       {#if poignee2}
         <li>
-          <span class="font-bold text-info">{poignee_str(partie.typedepoignee2)}</span>
+          <span class="font-bold text-info-content dark:text-info">{poignee_str(partie.typedepoignee2)}</span>
           annoncée par
-          <span class="font-bold text-info">{get_nom_joueur(partie.poignee2annonceepar)}</span>
+          <span class="font-bold text-info-content dark:text-info">{get_nom_joueur(partie.poignee2annonceepar)}</span>
         </li>
       {/if}
       {#if !poignee1 && !poignee2}
@@ -68,40 +68,40 @@
       {/if}
       {#if chelemannoncepar && chelemrealisepar && partie.chelemannoncepar === partie.chelemrealisepar}
         <li>
-          <span class="font-bold text-info">Chelem</span>
+          <span class="font-bold text-info-content dark:text-info">Chelem</span>
           annoncé et réalisé par
-          <span class="font-bold text-info">{get_nom_joueur(partie.chelemannoncepar)}</span>
+          <span class="font-bold text-info-content dark:text-info">{get_nom_joueur(partie.chelemannoncepar)}</span>
         </li>
       {:else if chelemannoncepar && chelemrealisepar}
         <li>
-          <span class="font-bold text-info">Chelem</span>
+          <span class="font-bold text-info-content dark:text-info">Chelem</span>
           annoncé par
           <span class="font-bold text-error">{get_nom_joueur(partie.chelemannoncepar)}</span>
           et réalisé par
-          <span class="font-bold text-info">{get_nom_joueur(partie.chelemrealisepar)}</span>
+          <span class="font-bold text-info-content dark:text-info">{get_nom_joueur(partie.chelemrealisepar)}</span>
         </li>
       {:else if chelemannoncepar && !chelemrealisepar}
         <li>
-          <span class="font-bold text-info">Chelem</span>
+          <span class="font-bold text-info-content dark:text-info">Chelem</span>
           annoncé par
-          <span class="font-bold text-info">{get_nom_joueur(partie.chelemannoncepar)}</span>
+          <span class="font-bold text-info-content dark:text-info">{get_nom_joueur(partie.chelemannoncepar)}</span>
           et
-          <span class="font-bold text-error">non réalisé</span>
+          <span class="font-bold text-info-content dark:text-info">non réalisé</span>
         </li>
       {:else if chelemrealisepar && !chelemannoncepar}
         <li>
-          <span class="font-bold text-info">Chelem</span>
+          <span class="font-bold text-info-content dark:text-info">Chelem</span>
           non annoncé et réalisé par
-          <span class="font-bold text-info">{get_nom_joueur(partie.chelemrealisepar)}</span>
+          <span class="font-bold text-info-content dark:text-info">{get_nom_joueur(partie.chelemrealisepar)}</span>
         </li>
       {:else}
         <li class="opacity-50 line-through">Chelem</li>
       {/if}
       {#if petitmeneauboutpar}
         <li>
-          <span class="font-bold text-info">Petit mené au bout</span>
+          <span class="font-bold text-info-content dark:text-info">Petit mené au bout</span>
           par
-          <span class="font-bold text-info">{get_nom_joueur(partie.petitmeneauboutpar)}</span>
+          <span class="font-bold text-info-content dark:text-info">{get_nom_joueur(partie.petitmeneauboutpar)}</span>
         </li>
       {:else}
         <li class="opacity-50 line-through">Petit mené au bout</li>
