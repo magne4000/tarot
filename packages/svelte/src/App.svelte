@@ -1,9 +1,15 @@
+<script context="module">
+  import { parse } from './lib/storage';
+  parse();
+</script>
+
 <script lang="ts">
   import Joueurs from './Joueurs.svelte';
   import Partie from './Partie.svelte';
   import Header from './Header.svelte';
   import Scores from './Scores.svelte';
   import { parties, page } from './lib/memoire';
+  import Old from './Old.svelte';
 </script>
 
 <main class="h-full">
@@ -18,6 +24,12 @@
     {#if $page === 'scores'}
       <div class="container max-w-xl mx-auto">
         <Scores />
+      </div>
+    {/if}
+
+    {#if $page === 'old'}
+      <div class="container max-w-xl mx-auto">
+        <Old />
       </div>
     {/if}
 

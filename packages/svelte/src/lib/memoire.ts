@@ -1,5 +1,6 @@
 import type { Partie } from '@tarot/lib';
 import { get, writable } from 'svelte/store';
+import { watch } from './storage';
 
 export interface ScoreCol {
   score: number;
@@ -15,13 +16,19 @@ export interface ScoreLine {
   };
 }
 
+export interface PersistedGame {
+  scores: number[];
+  parties: Partie[];
+  joueurs: string[];
+  date: Date;
+}
+
 export const joueurs = writable(['', '', '']);
-
-export const page = writable<number | 'joueurs' | 'scores'>('joueurs');
-
+export const page = writable<number | 'joueurs' | 'scores' | 'old'>('joueurs');
 export const parties = writable<Partie[]>([]);
 export const scores = writable<ScoreLine[]>([]);
 export const total = writable<number[]>([]);
+export const old_parties = writable<Partial<PersistedGame>[]>([]);
 
 function creer_partie(): Partie {
   return {
@@ -43,6 +50,8 @@ function creer_partie(): Partie {
 export function demarrer() {
   parties.set([creer_partie()]);
   page.set(1);
+
+  watch();
 }
 
 export function changer_partie() {
