@@ -48,7 +48,7 @@ jobs:
           type: 'tar'
           filename: ${{ runner.temp }}/tarot-svelte.tar.gz
           directory: 'packages/svelte/dist'
-          path: '.'
+          path: '*'
 
       - name: Upload Release
         uses: ncipollo/release-action@v1.12.0
