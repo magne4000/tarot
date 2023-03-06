@@ -11,20 +11,6 @@
   .badge-score {
     @apply badge absolute right-0 top-0 rounded-none rounded-bl-md;
   }
-
-  .grid-table {
-    @apply grid;
-    box-sizing: border-box;
-    min-width: max-content;
-  }
-
-  .grid-table > .grid-table-cell {
-    box-sizing: border-box;
-    white-space: nowrap;
-    padding: 1rem;
-    vertical-align: middle;
-    min-width: min-content;
-  }
 }
 
 html,
