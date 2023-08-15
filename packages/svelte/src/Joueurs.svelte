@@ -30,10 +30,10 @@
         />
         {#if i === $joueurs.length - 1 && $parties.length === 0}
           {#if $joueurs.length > 3}
-            <button type="button" class="btn btn-error btn-outline" on:click={delJoueur}>- 🙋</button>
+            <button type="button" class="btn btn-error btn-outline" on:click={delJoueur}>-</button>
           {/if}
           {#if $joueurs.length < 5}
-            <button type="button" class="btn btn-accent btn-outline" on:click={addJoueur}>+ 🙋</button>
+            <button type="button" class="btn btn-accent btn-outline" on:click={addJoueur}>+</button>
           {/if}
         {/if}
       </div>
