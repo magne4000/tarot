@@ -7,9 +7,9 @@
 
 <h2 class="text-3xl font-bold mb-4">Parties précédentes</h2>
 
-<ul class="flex flex-col gap-2">
+<div class="flex flex-col gap-2">
   {#each $old_parties as partie}
-    <li class="flex flex-col bg-base-100 hover:bg-base-200 border border-primary rounded p-4 gap-2">
+    <div class="p-4 card border">
       <div class="flex flex-col justify-between flex-1">
         <div class="flex flex-wrap">
           {#each partie.joueurs as joueur}
@@ -30,6 +30,6 @@
           Reprendre
         </button>
       </div>
-    </li>
+    </div>
   {/each}
-</ul>
+</div>

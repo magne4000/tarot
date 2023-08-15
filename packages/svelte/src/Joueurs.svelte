@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { demarrer, joueurs, parties } from './lib/memoire';
+  import { demarrer, joueurs, parties, old_parties, page } from './lib/memoire';
+
+  const now = Date.now();
 
   function addJoueur() {
     joueurs.update((js) => [...js, '']);
@@ -12,8 +14,16 @@
     });
   }
 
+  const a_parties_recentes = $old_parties.some(p => p.date.getTime() + (24 * 60 * 60 * 1000) > now);
+
   $: peut_demarrer = $joueurs.every((j) => j.match(/\S+/));
 </script>
+
+{#if a_parties_recentes}
+  <button class="alert alert-info cursor-pointer my-4" on:click={() => page.set('old')}>
+    Reprendre une partie récente ?
+  </button>
+{/if}
 
 <form class="ui form segment" on:submit|preventDefault={demarrer}>
   <h2 class="text-3xl font-bold mb-4">Joueurs</h2>
