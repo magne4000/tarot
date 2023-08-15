@@ -27,7 +27,7 @@ export const joueurs = writable(['', '', '']);
 export const page = writable<number | 'joueurs' | 'scores' | 'old'>('joueurs');
 export const parties = writable<Partie[]>([]);
 export const scores = writable<ScoreLine[]>([]);
-export const total = writable<number[]>([]);
+export const total_cumule = writable<number[][]>([]);
 export const old_parties = writable<Partial<PersistedGame>[]>([]);
 
 function creer_partie(): Partie {
@@ -66,17 +66,21 @@ export function changer_partie() {
 }
 
 export function update_score_total() {
-  const score_total: number[] = [];
+  const score_total: number[][] = [];
   const lines = get(scores);
 
-  for (const line of lines) {
-    for (let j = 0; j < line.scores.length; j++) {
-      if (typeof score_total[j] !== 'number') score_total.push(line.scores[j].score);
-      else {
-        score_total[j] += line.scores[j].score;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const partie_i = line.scores.map(s => s.score);
+
+    if (i > 0) {
+      for (let j = 0; j < line.scores.length; j++) {
+        partie_i[j] += score_total[i - 1][j];
       }
     }
+
+    score_total.push(partie_i);
   }
 
-  total.set(score_total);
+  total_cumule.set(score_total);
 }

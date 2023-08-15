@@ -7,11 +7,11 @@
 
 <h2 class="text-3xl font-bold mb-4">Parties précédentes</h2>
 
-<ul>
+<ul class="flex flex-col gap-2">
   {#each $old_parties as partie}
-    <li class="h-20 flex bg-base-100 hover:bg-base-200">
-      <div class="flex p-4 flex-col justify-between flex-1">
-        <div class="">
+    <li class="flex flex-col bg-base-100 hover:bg-base-200 border border-primary rounded p-4 gap-2">
+      <div class="flex flex-col justify-between flex-1">
+        <div class="flex flex-wrap">
           {#each partie.joueurs as joueur}
             <span class="text-primary font-bold p-1">{joueur}</span>
           {/each}
@@ -24,7 +24,7 @@
           </span>
         </div>
       </div>
-      <div class="flex justify-center items-center gap-2 pr-4">
+      <div class="flex justify-center items-center gap-2">
         <button class="btn btn-error" on:click={() => del_old_partie(partie.date.toISOString())}>🗑</button>
         <button class="btn btn-primary" on:click={() => continue_old_partie(partie.date.toISOString())}>
           Reprendre
