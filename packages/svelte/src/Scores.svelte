@@ -7,7 +7,7 @@
   $: cumule = $total_cumule[Math.min(partie, $total_cumule.length - 1)]
 </script>
 
-<h2 class="text-3xl font-bold mb-4">Scores cumulés</h2>
+<h2 class="text-3xl font-bold mb-4 ">Scores cumulés</h2>
 
 <div class="container flex flex-col p-4 gap-4">
   <TableScores scores={cumule} partie={$parties[partie]} />
