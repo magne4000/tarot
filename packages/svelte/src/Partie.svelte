@@ -157,6 +157,7 @@
             autocomplete="off"
             placeholder="0"
             type="number"
+            step="0.5"
             min={0}
             max={91}
             name="pointscomptesattaque"
@@ -169,6 +170,7 @@
             autocomplete="off"
             placeholder="91"
             type="number"
+            step="0.5"
             min={0}
             max={91}
             name="pointscomptesdefense"
