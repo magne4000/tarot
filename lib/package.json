@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "NODE_OPTIONS='--loader tsx' uvu",
+    "test": "NODE_OPTIONS='--import tsx' uvu",
     "build": "tsup tarot.ts --dts --format esm,cjs"
   },
   "exports": {

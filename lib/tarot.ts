@@ -42,8 +42,10 @@ export function get_score_joueur(joueur: Joueur, preneur: Joueur, appele: Joueur
   return points.defense;
 }
 
-export const get_fait_de = (pointscomptesattaque: number, nombredeboutsfaits: number) =>
-  pointscomptesattaque - CorresBoutsPoints[nombredeboutsfaits];
+export const get_fait_de = (pointscomptesattaque: number, nombredeboutsfaits: number) => {
+  const score = pointscomptesattaque - CorresBoutsPoints[nombredeboutsfaits];
+  return score >= 0 ? Math.ceil(score) : Math.floor(score);
+};
 
 export const get_points_appel = (faitede: number, quelcontrat: Contrat) =>
   (faitede + (faitede >= 0 ? 25 : -25)) * quelcontrat;
@@ -52,7 +54,7 @@ export const get_petit = (
   petitmeneauboutpar: Joueur,
   quiapris: Joueur,
   avecquelappele: Joueur,
-  quelcontrat: Contrat
+  quelcontrat: Contrat,
 ) => {
   if (petitmeneauboutpar === quiapris || (avecquelappele !== -1 && petitmeneauboutpar === avecquelappele)) {
     return 10 * quelcontrat;
@@ -74,7 +76,7 @@ export const get_chelem_calc = (
   annonceparattaque: boolean,
   annoncepardefense: boolean,
   realiseparattaque: boolean,
-  realisepardefense: boolean
+  realisepardefense: boolean,
 ) => {
   const sign = realiseparattaque || (annoncepardefense && !realisepardefense) ? 1 : -1;
   const realisemulti = (annonceparattaque && realiseparattaque) || (annoncepardefense && realisepardefense) ? 2 : 1;
@@ -85,7 +87,7 @@ export const get_chelem = (
   chelemannoncepar: Joueur,
   chelemrealisepar: Joueur,
   quiapris: Joueur,
-  avecquelappele: Joueur
+  avecquelappele: Joueur,
 ) => {
   if (chelemannoncepar !== -1 || chelemrealisepar !== -1) {
     const annonceparattaque =

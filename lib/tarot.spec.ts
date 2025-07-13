@@ -16,6 +16,8 @@ import tarot, {
 
 test('get_fait_de', () => {
   assert.is(get_fait_de(56, 0), 0);
+  assert.is(get_fait_de(56.5, 0), 1);
+  assert.is(get_fait_de(55.5, 0), -1);
   assert.is(get_fait_de(51, 1), 0);
   assert.is(get_fait_de(41, 2), 0);
   assert.is(get_fait_de(36, 3), 0);
