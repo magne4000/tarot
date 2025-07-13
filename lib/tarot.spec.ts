@@ -38,7 +38,7 @@ test('get_points_appel', () => {
   assert.is(get_points_appel(-10, Contrat.GardeContre), -210);
 });
 
-test('get_points_appel', () => {
+test('get_petit', () => {
   const J1: Joueur = 1;
   const J2: Joueur = 2;
   const J3: Joueur = 3;
